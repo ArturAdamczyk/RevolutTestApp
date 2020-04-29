@@ -1,4 +1,4 @@
-package art.com.revoluttestapp.presentation
+package art.com.revoluttestapp.presentation.money_converter.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,10 @@ class ConvertedMoneyListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.money_item_row, parent, false)
-        val holder = ConvertedMoneyItemViewHolder(inflatedView)
+        val holder =
+            ConvertedMoneyItemViewHolder(
+                inflatedView
+            )
         holder.setIsRecyclable(true)
         return holder
     }

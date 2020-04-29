@@ -1,12 +1,13 @@
-package art.com.revoluttestapp.presentation
+package art.com.revoluttestapp.presentation.money_converter
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import art.com.revoluttestapp.domain.model.CurrencyType
 import art.com.revoluttestapp.domain.service.CurrenciesApi
+import art.com.revoluttestapp.presentation.money_converter.list.ConvertedMoneyItem
 import art.com.revoluttestapp.presentation.shared.BaseViewModel
 import art.com.revoluttestapp.presentation.shared.Event
-import art.com.revoluttestapp.shared.logger.AppDispatchers
+import art.com.revoluttestapp.shared.AppDispatchers
 import art.com.revoluttestapp.shared.logger.Logger
 import kotlinx.coroutines.Job
 import java.math.BigDecimal
@@ -92,6 +93,11 @@ class MoneyConverterViewModel(private val currenciesApi: CurrenciesApi,
                 onSuccess = { convertMoney(this.amount) }
             )
         }
+    }
+
+    override fun onCleared() {
+        moneyListUpdater?.cancel()
+        super.onCleared()
     }
 
 }

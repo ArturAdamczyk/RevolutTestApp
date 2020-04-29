@@ -1,4 +1,4 @@
-package art.com.revoluttestapp.presentation
+package art.com.revoluttestapp.presentation.money_converter.list
 
 import java.math.BigDecimal
 

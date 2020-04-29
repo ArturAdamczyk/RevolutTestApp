@@ -3,12 +3,13 @@ package art.com.revoluttestapp.presentation.shared
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import art.com.revoluttestapp.shared.Result
-import art.com.revoluttestapp.shared.logger.AppDispatchers
+import art.com.revoluttestapp.shared.AppDispatchers
 import art.com.revoluttestapp.shared.logger.Logger
 import kotlinx.coroutines.*
 
 abstract class BaseViewModel(private val logger : Logger,
-                             private val dispatchers: AppDispatchers): ViewModel() {
+                             private val dispatchers: AppDispatchers
+): ViewModel() {
 
     fun <T> execute(
         function: () -> Result<T>,

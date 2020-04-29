@@ -5,7 +5,6 @@ import android.text.Editable
 import android.view.View
 import android.widget.EditText
 import art.com.revoluttestapp.R
-import java.math.BigDecimal
 
 fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
@@ -22,5 +21,3 @@ fun EditText.adjustFontSize(textLength: Int) {
         else -> this.textSize = resources.getDimension(R.dimen.font_medium).toSp()
     }
 }
-
-fun BigDecimal.isIntegerValue(): Boolean = this.stripTrailingZeros().scale() <= 0

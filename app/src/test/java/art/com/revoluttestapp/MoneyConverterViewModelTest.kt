@@ -4,10 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import art.com.revoluttestapp.domain.model.CurrencyType
 import art.com.revoluttestapp.domain.model.Money
 import art.com.revoluttestapp.domain.service.CurrenciesApi
-import art.com.revoluttestapp.presentation.BaseMoney
-import art.com.revoluttestapp.presentation.ConvertedMoneyItem
-import art.com.revoluttestapp.presentation.MoneyConverterViewModel
-import art.com.revoluttestapp.presentation.MoneyConverterViewModelDataFactory
+import art.com.revoluttestapp.presentation.money_converter.BaseMoney
+import art.com.revoluttestapp.presentation.money_converter.list.ConvertedMoneyItem
+import art.com.revoluttestapp.presentation.money_converter.MoneyConverterViewModel
+import art.com.revoluttestapp.presentation.money_converter.MoneyConverterViewModelDataFactory
 import art.com.revoluttestapp.shared.logger.Logger
 import io.mockk.impl.annotations.MockK
 import org.junit.Before
@@ -18,7 +18,7 @@ import org.junit.runners.JUnit4
 import java.math.BigDecimal
 import art.com.revoluttestapp.shared.Result
 import art.com.revoluttestapp.shared.TestDispatchers
-import art.com.revoluttestapp.shared.logger.AppDispatchers
+import art.com.revoluttestapp.shared.AppDispatchers
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
 
@@ -39,8 +39,16 @@ class MoneyConverterViewModelTest {
     private val dispatchers: AppDispatchers = TestDispatchers()
     private lateinit var viewModelUnderTest: MoneyConverterViewModel
     private val moneyAmount = BigDecimal("100")
-    private val baseMoney = BaseMoney(0,"", 0)
-    private val convertedMoneyList = listOf(ConvertedMoneyItem(0,"",0, BigDecimal("200")))
+    private val baseMoney =
+        BaseMoney(0, "", 0)
+    private val convertedMoneyList = listOf(
+        ConvertedMoneyItem(
+            0,
+            "",
+            0,
+            BigDecimal("200")
+        )
+    )
 
     @Before
     fun setup() {
@@ -48,7 +56,13 @@ class MoneyConverterViewModelTest {
         `simulate view model data factory behaviour`()
         `simulate currencies api behaviour`()
 
-        viewModelUnderTest = MoneyConverterViewModel(currenciesApi, dataFactory, logger, dispatchers)
+        viewModelUnderTest =
+            MoneyConverterViewModel(
+                currenciesApi,
+                dataFactory,
+                logger,
+                dispatchers
+            )
     }
 
     @Test

@@ -10,7 +10,7 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:id="@+id/moneyConverterViewContainer"
-    tools:context=".presentation.MoneyConverterActivity">
+    tools:context=".presentation.money_converter.MoneyConverterActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moneyListRecyclerView"

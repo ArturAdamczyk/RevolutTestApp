@@ -1,4 +1,4 @@
-package art.com.revoluttestapp.data
+package art.com.revoluttestapp.data.network
 
 import com.google.gson.annotations.SerializedName
 

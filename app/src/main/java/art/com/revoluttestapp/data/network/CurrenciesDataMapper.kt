@@ -1,10 +1,11 @@
-package art.com.revoluttestapp.data
+package art.com.revoluttestapp.data.network
 
 import art.com.revoluttestapp.domain.model.Currency
 import art.com.revoluttestapp.domain.model.CurrencyType
 import java.math.BigDecimal
 
-class CurrenciesDataMapper: ModelMapper<CurrenciesDTO, List<Currency>>{
+class CurrenciesDataMapper:
+    ModelMapper<CurrenciesDTO, List<Currency>> {
 
     override fun mapToDomain(dto: CurrenciesDTO): List<Currency> {
         return mapRates(dto.rates)

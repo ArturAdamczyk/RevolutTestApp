@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.MoneyConverterActivity"
+            android:name=".presentation.money_converter.MoneyConverterActivity"
 >
             <intent-filter>
                 <action

@@ -1,4 +1,4 @@
-package art.com.revoluttestapp.data
+package art.com.revoluttestapp.data.network
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.gson.responseObject
@@ -14,7 +14,10 @@ class RevolutApiClient{
             .responseObject<CurrenciesDTO>()
         when(result){
             is Result.Success -> { return result.get() }
-            is Result.Failure -> { throw ConnectionError(result.getException()) }
+            is Result.Failure -> { throw ConnectionError(
+                result.getException()
+            )
+            }
         }
     }
 }

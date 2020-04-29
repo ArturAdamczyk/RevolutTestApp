@@ -1,6 +1,6 @@
 package art.com.revoluttestapp.presentation.shared
 
-import art.com.revoluttestapp.shared.logger.AppDispatchers
+import art.com.revoluttestapp.shared.AppDispatchers
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

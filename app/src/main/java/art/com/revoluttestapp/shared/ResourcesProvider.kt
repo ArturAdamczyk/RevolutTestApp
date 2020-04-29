@@ -1,4 +1,4 @@
-package art.com.revoluttestapp.shared.logger
+package art.com.revoluttestapp.shared
 
 import android.content.res.Resources
 

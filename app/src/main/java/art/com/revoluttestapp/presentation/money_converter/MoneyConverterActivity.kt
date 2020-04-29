@@ -1,4 +1,4 @@
-package art.com.revoluttestapp.presentation
+package art.com.revoluttestapp.presentation.money_converter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.text.TextWatcher
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import art.com.revoluttestapp.R
+import art.com.revoluttestapp.presentation.money_converter.list.ConvertedMoneyItem
+import art.com.revoluttestapp.presentation.money_converter.list.ConvertedMoneyListAdapter
 import art.com.revoluttestapp.presentation.shared.EventObserver
 import art.com.revoluttestapp.presentation.shared.adjustFontSize
 import art.com.revoluttestapp.presentation.shared.toEditable
@@ -19,7 +21,8 @@ import java.math.BigDecimal
 class MoneyConverterActivity : AppCompatActivity() {
 
     private val viewModel: MoneyConverterViewModel by viewModel()
-    private val moneyListAdapter = ConvertedMoneyListAdapter()
+    private val moneyListAdapter =
+        ConvertedMoneyListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

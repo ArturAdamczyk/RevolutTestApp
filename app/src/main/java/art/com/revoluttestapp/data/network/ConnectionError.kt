@@ -1,3 +1,3 @@
-package art.com.revoluttestapp.data
+package art.com.revoluttestapp.data.network
 
 class ConnectionError(e: Throwable): Exception(e)
