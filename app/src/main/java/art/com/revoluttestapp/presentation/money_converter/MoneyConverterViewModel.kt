@@ -49,7 +49,8 @@ class MoneyConverterViewModel(private val currenciesApi: CurrenciesApi,
             onSuccess = {
                 this.amount = amount
                 baseMoney.value = dataFactory.createBaseMoney(it)
-                updateConvertedMoneyList()
+                convertMoney(this.amount)
+                resumePollingData()
             },
             onError = { errorMessage.value = Event(dataFactory.createConnectionErrorMessage()) }
         )
@@ -67,13 +68,21 @@ class MoneyConverterViewModel(private val currenciesApi: CurrenciesApi,
     }
 
     fun resumePollingData(){
-        moneyListUpdater?.let{
-            if(!it.isActive) updateConvertedMoneyList()
-        }?: updateConvertedMoneyList()
+        startDataPolling()
     }
 
     private fun cancelDataPolling(){
         if(moneyListUpdater?.isActive == true) moneyListUpdater?.cancel()
+    }
+
+    private fun startDataPolling(){
+        baseMoney.value?.let {
+            initialDataLoadedCorrectly = true
+            moneyListUpdater = poll(
+                function = { currenciesApi.updateCurrencies() },
+                onSuccess = { convertMoney(this.amount) }
+            )
+        }
     }
 
     private fun loadData(currency: String = CurrencyType.EUR.value){
@@ -81,7 +90,7 @@ class MoneyConverterViewModel(private val currenciesApi: CurrenciesApi,
             function = { currenciesApi.changeBaseCurrency(CurrencyType.valueOf(currency)) },
             onSuccess = {
                 baseMoney.value = dataFactory.createBaseMoney(it)
-                updateConvertedMoneyList()
+                startDataPolling()
             },
             onError = { handleInitialDataLoadError() }
         )
@@ -96,16 +105,6 @@ class MoneyConverterViewModel(private val currenciesApi: CurrenciesApi,
         if(!initialDataLoadErrorMessageDisplayed){
             initialDataLoadErrorMessageDisplayed = true
             errorMessage.value = Event(dataFactory.createConnectionErrorMessage())
-        }
-    }
-
-    private fun updateConvertedMoneyList(){
-        baseMoney.value?.let {
-            initialDataLoadedCorrectly = true
-            moneyListUpdater = poll(
-                function = { currenciesApi.updateCurrencies() },
-                onSuccess = { convertMoney(this.amount) }
-            )
         }
     }
 

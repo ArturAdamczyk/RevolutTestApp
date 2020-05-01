@@ -98,7 +98,6 @@ class MoneyConverterViewModelTest {
 
         verifyOrder {
             currenciesApi.changeBaseCurrency(any())
-            currenciesApi.updateCurrencies()
             currenciesApi.convertMoney(any())
         }
 
