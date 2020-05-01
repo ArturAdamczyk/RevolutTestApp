@@ -3,6 +3,7 @@ package art.com.revoluttestapp
 import android.app.Application
 import art.com.revoluttestapp.data.*
 import art.com.revoluttestapp.data.network.CurrenciesDataMapper
+import art.com.revoluttestapp.data.network.CurrenciesMap
 import art.com.revoluttestapp.data.network.RevolutApiClient
 import art.com.revoluttestapp.data.network.RevolutApiCurrenciesProvider
 import art.com.revoluttestapp.domain.service.CurrenciesApi
@@ -35,7 +36,8 @@ class App: Application() {
         single <CurrenciesRepository> {CurrenciesRepositoryImpl() }
         single <CurrenciesProvider> { RevolutApiCurrenciesProvider(get(), get()) }
         single { RevolutApiClient() }
-        factory { CurrenciesDataMapper() }
+        factory { CurrenciesDataMapper(get()) }
+        single { CurrenciesMap }
         single { CurrencyResourcesProvider() }
         factory { MoneyConverterViewModelDataFactory(get(), get()) }
         single <Logger> {

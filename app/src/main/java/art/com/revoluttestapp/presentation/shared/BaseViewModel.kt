@@ -42,6 +42,7 @@ abstract class BaseViewModel(private val logger : Logger,
         return viewModelScope.launch(dispatchers.io()) {
             while(true){
                 try{
+                    delay(interval)
                     withTimeout(timeout){
                         when(val result = function.invoke()){
                             is Result.Success -> runOnUI(this) { onSuccess.invoke(result.value) }
@@ -51,8 +52,8 @@ abstract class BaseViewModel(private val logger : Logger,
                 }catch(e: Exception){
                     logger.logException(e)
                     runOnUI(this) { onError.invoke(e) }
+                    break
                 }
-                delay(interval)
             }
         }
     }

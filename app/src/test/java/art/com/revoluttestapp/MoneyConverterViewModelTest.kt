@@ -20,6 +20,7 @@ import art.com.revoluttestapp.shared.Result
 import art.com.revoluttestapp.shared.TestDispatchers
 import art.com.revoluttestapp.shared.AppDispatchers
 import io.mockk.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
 private typealias DataFactory = MoneyConverterViewModelDataFactory
@@ -55,14 +56,18 @@ class MoneyConverterViewModelTest {
         MockKAnnotations.init(this)
         `simulate view model data factory behaviour`()
         `simulate currencies api behaviour`()
+        `simulate coroutine cancellation`()
 
-        viewModelUnderTest =
-            MoneyConverterViewModel(
-                currenciesApi,
-                dataFactory,
-                logger,
-                dispatchers
-            )
+        runBlocking{
+            viewModelUnderTest =
+                MoneyConverterViewModel(
+                    currenciesApi,
+                    dataFactory,
+                    logger,
+                    dispatchers
+                )
+            delay(1000)
+        }
     }
 
     @Test
@@ -77,7 +82,7 @@ class MoneyConverterViewModelTest {
     }
 
     @Test
-    fun `should be able load data on start`() {
+    fun `should be able to load data on start`() {
         verifyOrder {
             currenciesApi.changeBaseCurrency(any())
             currenciesApi.updateCurrencies()
@@ -131,5 +136,10 @@ class MoneyConverterViewModelTest {
     private fun `simulate money convert success`() {
         coEvery { currenciesApi.convertMoney(moneyAmount) } returns Result.Success(listOf(Money(CurrencyType.EUR, BigDecimal("200"))))
     }
+
+    private fun `simulate coroutine cancellation`() {
+        coEvery { logger.logException(any()) } returns Unit
+    }
+
 
 }

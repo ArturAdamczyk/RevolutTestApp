@@ -33,6 +33,16 @@ class MoneyConverterActivity : AppCompatActivity() {
         setupObservers()
     }
 
+    override fun onResume() {
+        viewModel.resumePollingData()
+        super.onResume()
+    }
+
+    override fun onStop() {
+        viewModel.stopPollingData()
+        super.onStop()
+    }
+
     private fun setupObservers(){
         with(viewModel){
             observeConvertedMoneyList().observe(this@MoneyConverterActivity, Observer(::updateAdapterData))

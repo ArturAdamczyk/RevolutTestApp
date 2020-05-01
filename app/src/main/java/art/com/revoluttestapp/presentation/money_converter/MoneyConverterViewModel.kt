@@ -43,7 +43,7 @@ class MoneyConverterViewModel(private val currenciesApi: CurrenciesApi,
     fun changeBaseCurrency(currency: String, amount: BigDecimal){
         execute(
             function = {
-                moneyListUpdater?.cancel()
+                cancelDataPolling()
                 currenciesApi.changeBaseCurrency(CurrencyType.valueOf(currency))
             },
             onSuccess = {
@@ -60,6 +60,20 @@ class MoneyConverterViewModel(private val currenciesApi: CurrenciesApi,
         execute(
             function = { currenciesApi.convertMoney(this.amount) },
             onSuccess = { convertedMoneyList.postValue(dataFactory.createConvertedMoneyItemList(it)) })
+    }
+
+    fun stopPollingData(){
+        cancelDataPolling()
+    }
+
+    fun resumePollingData(){
+        moneyListUpdater?.let{
+            if(!it.isActive) updateConvertedMoneyList()
+        }?: updateConvertedMoneyList()
+    }
+
+    private fun cancelDataPolling(){
+        if(moneyListUpdater?.isActive == true) moneyListUpdater?.cancel()
     }
 
     private fun loadData(currency: String = CurrencyType.EUR.value){
@@ -96,7 +110,7 @@ class MoneyConverterViewModel(private val currenciesApi: CurrenciesApi,
     }
 
     override fun onCleared() {
-        moneyListUpdater?.cancel()
+        cancelDataPolling()
         super.onCleared()
     }
 
